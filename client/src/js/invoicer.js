@@ -16,7 +16,8 @@
 
     });
 
-    var work = {
+    var work = 
+    {
         bill_type: "Invoice",
         number: "1234",
         send_date: "June 15, 2014",
