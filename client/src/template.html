@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="invoicer">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Invoice Template</title>
+
+    <link href="css/invoice.css" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="bootstrap-3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="angular/angular.min.js"></script>
+    <script src="js/invoicer.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body ng-controller="invController">
+    <div class="container" ng-show="contentLoaded">
+        <div class="row">
+            <div class="col-xs-12 page-header">
+                <div class="col-xs-6">
+                    <h1>{{invoice.from_company}}<br><small>{{invoice.bill_type}}</small></h1>
+                </div>
+                <div class="col-xs-6">
+                <address>
+                    {{invoice.from_address}}<br>
+                    {{invoice.from_city}}, {{invoice.from_state}} {{invoice.from_zip}}<br>
+                    <abbr title="Phone">P:</abbr> {{invoice.from_phone}}<br>
+                    <a href="mailto:{{invoice.from_email}}">{{invoice.from_email}}</a>
+                </address>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+		<h4>Client:</h4>
+                <address>
+                    <strong>{{invoice.to_company}}</strong><br>
+                    {{invoice.to_address}}<br>
+                    {{invoice.to_city}}, {{invoice.to_state}} {{invoice.to_zip}}<br>
+                    <abbr title="Phone">P:</abbr> {{invoice.to_phone}}<br>
+                    <a href="mailto:{{invoice.to_email}}">{{invoice.to_email}}</a>
+                </address>
+            </div>
+            <div class="col-xs-6">
+                <table class="table-reduce-padding">
+                    <tbody>
+                        <tr>
+                            <td><p class="h4">Invoice #: </p></td>
+                            <td><p class="h5"><strong>{{invoice.number}}</strong></p></td>
+                        </tr>
+                        <tr>
+                            <td><p class="h5">Date: </p></td>
+                            <td><p class="h5"><strong>{{invoice.send_date}}</strong></p></td>
+                        </tr>
+                        <tr>
+                            <td><p class="h5">Due Date: </p></td>
+                            <td><p class="h5"><strong>{{invoice.due_date}}</strong></p></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div> 
+        <div class="row">
+            <div class="col-xs-12 box">
+                <table class="table table-condensed table-striped">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Task</th>
+                            <th>Hours</th>
+                            <th>Unit Price</th>
+                            <th>Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in invoice.line_items">
+                            <td>{{$index+1}}</td>
+                            <td>
+                                <dl>
+                                    <dt>{{item.title}}</dt>
+                                    <dd>{{item.desc}}</dd>
+                                </dl>
+                            </td>
+                            <td>{{item.hours}}</td>
+                            <td>${{item.unit_price}}/hr</td>
+                            <td>${{item.hours*item.unit_price}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="subtotal">
+                        <tr>
+                            <td colspan=3></td>
+                            <td><p class="h5">Subtotal: </p></td>
+                            <td><p class="h5"><strong>${{ getSubTotal() }}</strong></p></td>
+                        </tr>
+                        <tr>
+                            <td colspan=3></td>
+                            <td><p class="h5">Deposit: </p></td>
+                            <td><p class="h5"><strong>${{invoice.client_deposit}}</strong></p></td>
+                        </tr>
+                        <tr>
+                            <td colspan=3></td>
+                            <td><p class="h5">Total: </p></td>
+                            <td><p class="h5"><strong>${{ getSubTotal() - invoice.client_deposit }}</strong></p></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <p class="h3 text-right">
+            Balance Due: ${{ getSubTotal() - invoice.client_deposit }}
+        </p>
+        <p>The future of this template is automated.</p>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap-3.1.1/js/bootstrap.min.js"></script>
+  </body>
+</html>
