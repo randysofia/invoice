@@ -39,7 +39,7 @@
         </div>
         <div class="row">
             <div class="col-xs-6">
-		<h4>Client:</h4>
+                <h4>Client:</h4>
                 <address>
                     <strong>{{invoice.to_company}}</strong><br>
                     {{invoice.to_address}}<br>
@@ -92,6 +92,18 @@
                             <td>${{item.unit_price}}/hr</td>
                             <td>${{item.hours*item.unit_price}}</td>
                         </tr>
+                        <tr id="dynamicInsert" class="warning" ng-show="invoice.temp.title">
+                            <td>{{invoice.line_items.length + 1}}</td>
+                            <td>
+                                <dl>
+                                    <dt>{{invoice.temp.title}}</dt>
+                                    <dd>{{invoice.temp.desc}}</dd>
+                                </dl>
+                            </td>
+                            <td>{{invoice.temp.hours}}</td>
+                            <td>${{invoice.temp.unit_price}}</td>
+                            <td>${{invoice.temp.hours * invoice.temp.unit_price}}</td>
+                        </tr>
                     </tbody>
                     <tfoot class="subtotal">
                         <tr>
@@ -116,7 +128,8 @@
         <p class="h3 text-right">
             Balance Due: ${{ getSubTotal() - invoice.client_deposit }}
         </p>
-        <p>The future of this template is automated.</p>
+        <p>Thank you for choosing {{invoice.from_company}}!</p>
+        <div ng-include src="'editor.html'"></div>
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
