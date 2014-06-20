@@ -12,6 +12,11 @@
             return subtotal;
         }
 
+        $scope.addItem = function() {
+            $scope.invoice.line_items.push(this.invoice.temp);
+            $scope.invoice.temp = {};
+        }
+
        $scope.contentLoaded = true; 
 
     });
