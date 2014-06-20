@@ -1,5 +1,10 @@
 (function() {
-    var invoicer = angular.module('invoicer', []);
+    var invoicer = angular.module('invoicer', ["xeditable"]);
+
+    invoicer.run(function(editableOptions) {
+      editableOptions.theme = 'bs3';
+      });
+
     invoicer.controller('invController', function($scope){
         $scope.invoice = work;
 

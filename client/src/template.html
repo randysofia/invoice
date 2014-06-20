@@ -7,10 +7,12 @@
     <title>Invoice Template</title>
 
     <link href="css/invoice.css" rel="stylesheet">
+    <link href="css/xeditable.css" rel="stylesheet">
 
     <!-- Bootstrap -->
     <link href="bootstrap-3.1.1/css/bootstrap.min.css" rel="stylesheet">
     <script src="angular/angular.min.js"></script>
+    <script src="js/xeditable.min.js"></script>
     <script src="js/invoicer.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -25,14 +27,15 @@
         <div class="row">
             <div class="col-xs-12 page-header">
                 <div class="col-xs-6">
-                    <h1>{{invoice.from_company}}<br><small>{{invoice.bill_type}}</small></h1>
+                    <h1><span editable-text="invoice.from_company">{{invoice.from_company || 'Company Name'}}</span><br>
+                    <small><span editable-text="invoice.bill_type">{{invoice.bill_type || 'Bill Type'}}</span></small></h1>
                 </div>
                 <div class="col-xs-6">
                 <address>
-                    {{invoice.from_address}}<br>
-                    {{invoice.from_city}}, {{invoice.from_state}} {{invoice.from_zip}}<br>
-                    <abbr title="Phone">P:</abbr> {{invoice.from_phone}}<br>
-                    <a href="mailto:{{invoice.from_email}}">{{invoice.from_email}}</a>
+                    <span editable-text="invoice.from_address">{{invoice.from_address || 'Address'}}</span><br>
+                    <span editable-text="invoice.from_city">{{invoice.from_city || 'City'}}</span>, <span editable-text="invoice.from_state">{{invoice.from_state || 'State'}}</span> <span editable-text="invoice.from_zip">{{invoice.from_zip || 'Zip'}}</span><br>
+                    <strong>P</strong>: <span editable-text="invoice.from_phone">{{invoice.from_phone || 'Phone'}}</span><br>
+                    <span editable-text="invoice.from_email">{{invoice.from_email || 'some@email.com'}}</span>
                 </address>
                 </div>
             </div>
@@ -41,11 +44,11 @@
             <div class="col-xs-6">
                 <h4>Client:</h4>
                 <address>
-                    <strong>{{invoice.to_company}}</strong><br>
-                    {{invoice.to_address}}<br>
-                    {{invoice.to_city}}, {{invoice.to_state}} {{invoice.to_zip}}<br>
-                    <abbr title="Phone">P:</abbr> {{invoice.to_phone}}<br>
-                    <a href="mailto:{{invoice.to_email}}">{{invoice.to_email}}</a>
+                    <strong><span editable-text="invoice.to_company">{{invoice.to_company || 'Client'}}</span></strong><br>
+                    <span editable-text="invoice.to_address">{{invoice.to_address || 'Address'}}</span><br>
+                    <span editable-text="invoice.to_city">{{invoice.to_city || 'City'}}</span>, <span editable-text="invoice.to_state">{{invoice.to_state || 'State'}}</span> <span editable-text="invoice.to_zip">{{invoice.to_zip || 'Zip'}}</span><br>
+                    <strong>P</strong>: <span editable-text="invoice.to_phone">{{invoice.to_phone || 'Phone'}}</span><br>
+                    <span editable-text="invoice.to_email">{{invoice.to_email || 'some@email.com'}}</span>
                 </address>
             </div>
             <div class="col-xs-6">
@@ -53,15 +56,15 @@
                     <tbody>
                         <tr>
                             <td><p class="h4">Invoice #: </p></td>
-                            <td><p class="h5"><strong>{{invoice.number}}</strong></p></td>
+                            <td><p class="h5"><strong><span editable-text="invoice.number">{{invoice.number || '####'}}</span></strong></p></td>
                         </tr>
                         <tr>
                             <td><p class="h5">Date: </p></td>
-                            <td><p class="h5"><strong>{{invoice.send_date}}</strong></p></td>
+                            <td><p class="h5"><strong><span editable-text="invoice.send_date">{{invoice.send_date || 'January 01, 2014'}}</span></strong></p></td>
                         </tr>
                         <tr>
                             <td><p class="h5">Due Date: </p></td>
-                            <td><p class="h5"><strong>{{invoice.due_date}}</strong></p></td>
+                            <td><p class="h5"><strong><span editable-text="invoice.due_date">{{invoice.due_date || 'January 15, 2014'}}</span></strong></p></td>
                         </tr>
                     </tbody>
                 </table>
@@ -84,12 +87,12 @@
                             <td>{{$index+1}}</td>
                             <td>
                                 <dl>
-                                    <dt>{{item.title}}</dt>
-                                    <dd>{{item.desc}}</dd>
+                                    <dt><span editable-text="invoice.line_items[$index].title">{{item.title || 'Task Title'}}</span></dt>
+                                    <dd><span editable-text="invoice.line_items[$index].desc">{{item.desc || "Description goes here"}}</span></dd>
                                 </dl>
                             </td>
-                            <td>{{item.hours}}</td>
-                            <td>${{item.unit_price}}/hr</td>
+                            <td><span editable-text="invoice.line_items[$index].hours" e-style="width: 50px">{{item.hours || '0'}}</span></td>
+                            <td>$<span editable-text="invoice.line_items[$index].unit_price" e-style="width: 50px">{{item.unit_price || '100'}}</span>/hr</td>
                             <td>${{item.hours*item.unit_price}}</td>
                         </tr>
                         <tr id="dynamicInsert" class="warning" ng-show="invoice.temp.title">
@@ -114,7 +117,7 @@
                         <tr>
                             <td colspan=3></td>
                             <td><p class="h5">Deposit: </p></td>
-                            <td><p class="h5"><strong>${{invoice.client_deposit}}</strong></p></td>
+                            <td><p class="h5"><strong><span editable-text="invoice.client_deposit" e-style="width: 50px">${{invoice.client_deposit || '0'}}</span></strong></p></td>
                         </tr>
                         <tr>
                             <td colspan=3></td>
