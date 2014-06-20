@@ -27,3 +27,11 @@ table tfoot.subtotal tr td p {
     margin: 0;
 }
 
+.editContainer {
+    width: 100%;
+    height: 300px;
+}
+
+.editor {
+    padding-bottom: 100px;
+}
