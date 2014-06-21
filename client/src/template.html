@@ -132,7 +132,7 @@
             Balance Due: ${{ getSubTotal() - invoice.client_deposit }}
         </p>
         <p>Thank you for choosing {{invoice.from_company}}!</p>
-        <div class="editContainer" " ng-mouseenter="showEditor=true" ng-mouseleave="showEditor=false">
+        <div class="editContainer" ng-mouseenter="showEditor=true" ng-mouseleave="showEditor=false">
             <div ng-show="showEditor" ng-include src="'editor.html'"></div>
         </div>
     </div>
