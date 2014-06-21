@@ -35,3 +35,19 @@ table tfoot.subtotal tr td p {
 .editor {
     padding-bottom: 100px;
 }
+
+input.ieditor {
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    text-decoration: inherit;
+    width: inherit;
+    display: initial;
+    padding: initial;
+    margin: initial;
+}
+
+input.ieditor:not([readonly]):focus {
+    border: 1px solid;
+}
+
