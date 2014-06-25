@@ -78,8 +78,8 @@
                             <th>Item</th>
                             <th>Task</th>
                             <th>Hours</th>
-                            <th>Unit Price</th>
-                            <th>Cost</th>
+                            <th>Rate</th>
+                            <th>Amount</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -92,7 +92,7 @@
                                 </dl>
                             </td>
                             <td><span editable-text="invoice.line_items[$index].hours" e-style="width: 50px">{{item.hours || '0'}}</span></td>
-                            <td>$<span editable-text="invoice.line_items[$index].unit_price" e-style="width: 50px">{{item.unit_price || '100'}}</span>/hr</td>
+                            <td>$<span editable-text="invoice.line_items[$index].unit_price" e-style="width: 50px">{{item.unit_price || '100'}}</span></td>
                             <td>${{item.hours*item.unit_price}}</td>
                         </tr>
                         <tr id="dynamicInsert" class="warning" ng-show="invoice.temp.title">
@@ -128,10 +128,14 @@
                 </table>
             </div>
         </div>
-        <p class="h3 text-right">
-            Balance Due: ${{ getSubTotal() - invoice.client_deposit }}
-        </p>
-        <p>Thank you for choosing {{invoice.from_company}}!</p>
+        <div class="col-xs-6">
+            <p>Your business is greatly appreciated!</p>
+        </div>
+        <div class="col-xs-6">
+            <p class="h3 text-right">
+                Balance Due: ${{ getSubTotal() - invoice.client_deposit }}
+            </p>
+        </div>
         <div class="editContainer" ng-mouseenter="showEditor=true" ng-mouseleave="showEditor=false">
             <div ng-show="showEditor" ng-include src="'editor.html'"></div>
         </div>
